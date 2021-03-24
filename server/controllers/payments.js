@@ -1,6 +1,9 @@
 const Payment = require('../models/payment');
 const timeoutQueue = require('timeout-queue');
 
+// not sure if moving helper functions away will make code more readable
+// from my experience I had both opinions in different teams. 
+// so just left helpers here.
 
 const update = ({_id}) => {
   Payment
