@@ -1,0 +1,4 @@
+node_modules
+# keeping env files away from git repo is best practice
+# added as example purpose only
+#.env

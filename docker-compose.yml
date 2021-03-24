@@ -1,0 +1,39 @@
+version: '3'
+
+services:
+
+  server:
+    container_name: ds_server
+    build:
+      context: ./server
+      dockerfile: Dockerfile
+    ports:
+      - 4000:4000
+
+  client:
+    container_name: ds_client
+    build:
+      context: ./client
+      dockerfile: Dockerfile.dev
+    ports: 
+      - 3000:3000
+
+  mongo: 
+    image: mongo
+    restart: always
+    container_name: ds_mongo
+    # command: 
+    #   --serviceExecutor adaptive
+    # volumes:
+    #   - ./db:/data/db
+    ports:
+      - 27017:27017
+    # env_file: 
+    #   - .env
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: '12345'
+      # MONGO_INITDB_DATABASE: test
+      # MONGO_INITDB_ROOT_USERNAME: ${MONGO_INITDB_ROOT_USERNAME}
+      # MONGO_INITDB_ROOT_PASSWORD: ${MONGO_INITDB_ROOT_PASSWORD}
+      # MONGO_INITDB_DATABASE: ${MONGO_INITDB_DATABASE}
