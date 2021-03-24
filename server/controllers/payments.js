@@ -1,4 +1,31 @@
 const Payment = require('../models/payment');
+const timeoutQueue = require('timeout-queue');
+
+
+const update = ({_id}) => {
+  Payment
+  .findByIdAndUpdate({ _id }, { paymentStatus: randomStatus() })
+  .then(console.log)
+  .catch();
+}
+
+const queue = timeoutQueue(40000, update );
+
+const findLastFour = (body) => {
+  switch (body.payment) {
+    case 'ach':
+      return body.account;
+    case 'card':
+      return body.card;
+    case 'token':
+      return body.token;
+  }
+}
+
+const randomStatus = () => {
+  const status = ['approved', 'declined', 'error'];
+  return status[Math.floor(Math.random() * status.length)]
+}
 
 exports.getAll = (_, res) =>
   Payment
@@ -7,19 +34,27 @@ exports.getAll = (_, res) =>
     .catch(err => res.status(500).json({ "error": err }))
 
 exports.create = (req, res) => {
-  const { paymentType, paymentStatus, lastFour, amount } = req.body;
+  const paymentType = req.body.payment;
+  const amount = req.body.amount;
+  const paymentStatus = 'processing';
+  const routingNumber = req.body.routingNumber || null;
+  const lastFour = findLastFour(req.body).slice(-4);
 
   Payment
-    .create({ paymentType, paymentStatus, lastFour, amount })
-    .then(payment => res.status(200).json(payment))
+    .create({ paymentType, paymentStatus, routingNumber, lastFour, amount })
+    .then(payment => {
+      res.status(200).json(payment);
+      // waitAndUpdate(payment._id);
+      queue.push(payment._id)
+    })
     .catch(err => res.status(500).json({ "err": err }))
 }
 
 exports.delete = (req, res) => {
   const { _id } = req.body;
-
   Payment
     .deleteOne({ _id })
     .then(res.status(200).json({ "Message": "Deletion Success!" }))
     .catch(err => res.status(500).json({ "Error:": err }))
 }
+
