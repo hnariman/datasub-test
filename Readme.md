@@ -1,4 +1,14 @@
-Create a react app for accepting payments (ReactJS + Ant Design).
+## Create a react app for accepting payments (ReactJS + Ant Design).
+
+__Fully packed in docker-compose with dev and prod Dockerfiles, sample nginx config with CORS enabled.
+Also added logger middleware for state debugging on server and client side.
+Jest + supertest testing samples are also available for endpoints and configuration made allows testing mongodb models and schemas.__
+
+![Image of Yaktocat](https://github.com/hnariman/datasub-test/blob/master/images/dsub1.jpg)
+
+![Image of Yaktocat](https://github.com/hnariman/datasub-test/blob/master/images/dsub2.jpg)
+
+## Requirements:
    
     React app should have a payment page with a select component labeled "Payment type" to choose one of options: Credit card, ACH, Token (by default should be Credit card) and "Amount" (decimal number field).
     
