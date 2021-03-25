@@ -8,6 +8,14 @@ Jest + supertest testing samples are also available for endpoints and configurat
 
 ![Image of Yaktocat](https://github.com/hnariman/datasub-test/blob/master/images/dsub2.jpg)
 
+## STATS:
+![Image of Yaktocat](https://github.com/hnariman/datasub-test/blob/master/images/ds-stats.jpg)
+
+
+## ROUTING:
+![Image of Yaktocat](https://github.com/hnariman/datasub-test/blob/master/images/ds_routes.jpg)
+
+
 ## Requirements:
    
     React app should have a payment page with a select component labeled "Payment type" to choose one of options: Credit card, ACH, Token (by default should be Credit card) and "Amount" (decimal number field).
